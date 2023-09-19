@@ -64,3 +64,24 @@ export const userPersist = ('/cadastro', (req, res) => {
     }
   });
 });
+
+
+export const getAutor = ('/autor-receita', (req, res) => {
+  const idAutor = req.body.autor;
+  
+  const q = `SELECT * FROM users WHERE id = '${idAutor}'`;
+
+  db.query(q, (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: "Erro interno do servidor" });
+    } else {
+      const userFound = data.find(user => user.id === idAutor);
+
+      if (userFound) {
+        return res.json(userFound); // Retorna os detalhes do usuário encontrado
+      } else {
+        return res.status(401).json({ message: "Usuário não encontrado" });
+      }
+    }
+  });
+});
