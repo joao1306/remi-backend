@@ -1,4 +1,5 @@
 import { db } from '../db.js';
+import mysql from 'mysql'
 
 export const getUsers = (req, res) => {
   const q = "SELECT * FROM users";
@@ -82,6 +83,25 @@ export const getAutor = ('/autor-receita', (req, res) => {
       } else {
         return res.status(401).json({ message: "Usuário não encontrado" });
       }
+    }
+  });
+});
+
+export const editUser = ('/alterar-dados-de-usuario', (req, res) => {
+  const id = req.body.id;
+  const username = req.body.username;
+  const foto = req.body.foto;
+  const titulo = req.body.titulo;
+
+  const q = "UPDATE remi.users SET username = ?, titulo = ?, foto = ? WHERE id = ?";
+  const values = [username, titulo, foto, id];
+  
+
+  db.query(q, values, (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: "Erro interno do servidor" });
+    } else {
+      return res.status(200).json({ message: "Usuário editado!" });
     }
   });
 });
