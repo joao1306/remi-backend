@@ -33,3 +33,19 @@ export const recipePersist = (req, res) => {
     });
 
 };
+
+export const getById = (req, res) => {
+
+    const idReceita = req.body.idDaReceita;
+
+    const q = `SELECT * FROM receita WHERE idreceitas = ${idReceita}`;
+
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: "Erro interno do servidor" });
+        } else {
+            return res.status(200).json(data)
+        }
+    });
+
+};
