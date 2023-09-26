@@ -13,6 +13,21 @@ export const getRecipes = (req, res) => {
     })
 }
 
+export const getMyRecipes = (req, res) => {
+    const id = req.query.userId;
+
+    const q = `SELECT * FROM receita WHERE idusuario = ${id}`;
+
+    db.query(q, (err, data) => {
+        if (err) {
+            return res.json(err);
+        }
+        else {
+            return res.status(200).json(data);
+        }
+    })
+}
+
 export const recipePersist = (req, res) => {
     const idusuario = req.body.idusuario;
     const nome = req.body.nome;
