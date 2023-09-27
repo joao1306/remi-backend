@@ -15,17 +15,31 @@ export const getRecipes = (req, res) => {
 
 export const getMyRecipes = (req, res) => {
     const id = req.query.userId;
+    const categoria = req.query.categoria;
 
-    const q = `SELECT * FROM receita WHERE idusuario = ${id}`;
+    if(categoria==='all'){
+        const q = `SELECT * FROM receita WHERE idusuario = ${id}`;
 
-    db.query(q, (err, data) => {
-        if (err) {
-            return res.json(err);
-        }
-        else {
-            return res.status(200).json(data);
-        }
-    })
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    } else {
+        const q = `SELECT * FROM receita WHERE idusuario = ${id} AND categoria = '${categoria}'`;
+
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    }
 }
 
 export const recipePersist = (req, res) => {
