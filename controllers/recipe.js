@@ -78,3 +78,39 @@ export const getById = (req, res) => {
     });
 
 };
+
+export const putNota = (req, res) => {
+    const idReceita = req.body.idDaReceita;
+    const novaNota = req.body.nota;
+    console.log(idReceita)
+    console.log(novaNota)
+
+
+    // Recupere a array de notas atual do banco de dados
+    const qSelect = "SELECT notas FROM receita WHERE idreceitas = ?";
+    db.query(qSelect, [idReceita], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: "Erro interno do servidor" });
+        } else {
+            if (!result || result.length === 0 || !result[0].notas) {
+                return res.status(404).json({ message: "Receita não encontrada" });
+            }
+
+            const notasAtuais = JSON.parse(result[0].notas);
+            // Adicione a nova nota à array existente
+            notasAtuais.push(novaNota);
+
+            // Converta a array atualizada de volta para uma string JSON
+            const notasAtualizadas = JSON.stringify(notasAtuais);
+            // Atualize a coluna 'notas' no banco de dados com a array atualizada
+            const qUpdate = "UPDATE receita SET notas = ? WHERE idreceitas = ?";
+            db.query(qUpdate, [notasAtualizadas, idReceita], (err, data) => {
+                if (err) {
+                    return res.status(500).json({ message: "Erro interno do servidor" });
+                } else {
+                    return res.status(200).json({ message: "Receita avaliada!" });
+                }
+            });
+        }
+    });
+};
