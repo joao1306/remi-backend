@@ -82,9 +82,6 @@ export const getById = (req, res) => {
 export const putNota = (req, res) => {
     const idReceita = req.body.idDaReceita;
     const novaNota = req.body.nota;
-    console.log(idReceita)
-    console.log(novaNota)
-
 
     // Recupere a array de notas atual do banco de dados
     const qSelect = "SELECT notas FROM receita WHERE idreceitas = ?";
@@ -114,3 +111,18 @@ export const putNota = (req, res) => {
         }
     });
 };
+
+export const delRecipe = (req, res) => {
+    const id = req.query.recipeId;
+
+    const q = `DELETE FROM receita WHERE idreceitas = ?`;
+
+    db.query(q, [id], (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: "Erro interno do servidor" });
+        } else {
+            return res.status(200).json(data)
+        }
+    });
+    
+}

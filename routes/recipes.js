@@ -1,5 +1,5 @@
 import express from 'express';
-import { getRecipes, getMyRecipes, recipePersist, getById, putNota } from '../controllers/recipe.js'
+import { getRecipes, getMyRecipes, recipePersist, getById, putNota, delRecipe } from '../controllers/recipe.js'
 
 const router = express.Router();
 
@@ -8,5 +8,6 @@ router.get('/my-recipes', getMyRecipes);
 router.post('/cadastrar-receita', recipePersist);
 router.put('/getRecipeById', getById);
 router.put('/persistir-nota', putNota);
+router.delete('/deletar-receita', delRecipe);
 
 export default router;
