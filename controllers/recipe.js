@@ -42,6 +42,34 @@ export const getMyRecipes = (req, res) => {
     }
 }
 
+export const getBestRecipes = (req, res) => {
+    const categoria = req.query.categoria;
+
+    if(categoria === 'all'){
+        const q = `SELECT * FROM receita`;
+
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    } else {
+        const q = `SELECT * FROM receita WHERE categoria = '${categoria}'`;
+
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    }
+}
+
 export const recipePersist = (req, res) => {
     const idusuario = req.body.idusuario;
     const nome = req.body.nome;
