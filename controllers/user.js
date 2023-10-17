@@ -52,7 +52,7 @@ export const userPersist = ('/cadastro', (req, res) => {
         return res.status(400).json({ message: "Sinto muito, este nome de usuário ja foi escolhido!" });
       } else {
         // Se o usuário não existe, insira-o no banco de dados
-        const persistirUsuario = `INSERT INTO remi.users (username, senha, titulo, receitas, favoritas, foto) VALUES ('${username}', '${password}', 'Amador', '[]', '[]', 'empty')`;
+        const persistirUsuario = `INSERT INTO remi.users (username, senha, titulo, receitas, favoritas, foto) VALUES ('${username}', '${password}', 'Amador', '[]', '[]', '1')`;
 
         db.query(persistirUsuario, (err, data) => {
           if (err) {
