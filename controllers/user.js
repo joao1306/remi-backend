@@ -90,11 +90,10 @@ export const getAutor = ('/autor-receita', (req, res) => {
 export const editUser = ('/alterar-dados-de-usuario', (req, res) => {
   const id = req.body.id;
   const username = req.body.username;
-  const foto = req.body.foto;
   const titulo = req.body.titulo;
 
-  const q = "UPDATE remi.users SET username = ?, titulo = ?, foto = ? WHERE id = ?";
-  const values = [username, titulo, foto, id];
+  const q = "UPDATE remi.users SET username = ?, titulo = ? WHERE id = ?";
+  const values = [username, titulo, id];
   
 
   db.query(q, values, (err, data) => {
@@ -105,3 +104,27 @@ export const editUser = ('/alterar-dados-de-usuario', (req, res) => {
     }
   });
 });
+
+export const putProfilePic = ('/selecionar-foto', (req, res) => {
+  const foto = req.body.foto;
+  const id = req.body.idUsuario;
+
+  // Certifique-se de que o ID do usuário seja um número (é uma boa prática verificar)
+  if (isNaN(id)) {
+    return res.status(400).json({ message: "ID de usuário inválido" });
+  }
+
+  const q = "UPDATE remi.users SET foto = ? WHERE id = ?";
+  const values = [foto, id];
+
+  db.query(q, values, (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: "Erro interno do servidor" });
+    } else if (data.affectedRows === 0) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    } else {
+      return res.status(200).json({ message: "Foto do usuário atualizada com sucesso!" });
+    }
+  });
+});
+
