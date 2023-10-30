@@ -68,8 +68,9 @@ export const userPersist = ('/cadastro', (req, res) => {
 
 
 export const getAutor = ('/autor-receita', (req, res) => {
-  const idAutor = req.body.autor;
-  
+  const idStringAutor = req.body.autor;
+  const idAutor = parseInt(idStringAutor);
+
   const q = `SELECT * FROM users WHERE id = '${idAutor}'`;
 
   db.query(q, (err, data) => {
@@ -127,4 +128,3 @@ export const putProfilePic = ('/selecionar-foto', (req, res) => {
     }
   });
 });
-
