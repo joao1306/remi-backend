@@ -79,7 +79,7 @@ export const recipePersist = (req, res) => {
     const passos = req.body.passos;
     const foto = req.body.foto;
 
-    const persistirReceita = `INSERT INTO remi.receita (idusuario, nome, categoria, descricao, ingredientes, passos, foto, notas) VALUES ('${idusuario}', '${nome}', '${categoria}', '${descricao}', '${ingredientes}', '${passos}', '${foto}', '["5"]');`;
+    const persistirReceita = `INSERT INTO remidb.receita (idusuario, nome, categoria, descricao, ingredientes, passos, foto, notas) VALUES ('${idusuario}', '${nome}', '${categoria}', '${descricao}', '${ingredientes}', '${passos}', '${foto}', '["5"]');`;
 
     db.query(persistirReceita, (err, data) => {
         if (err) {

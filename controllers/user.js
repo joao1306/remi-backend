@@ -41,7 +41,7 @@ export const userPersist = ('/cadastro', (req, res) => {
   const passwordrep = req.body.senharep;
 
   // Consulta SQL para verificar se o usuário já existe
-  const checarUsuario = `SELECT * FROM remi.users WHERE username = '${username}'`;
+  const checarUsuario = `SELECT * FROM remidb.users WHERE username = '${username}'`;
 
   db.query(checarUsuario, (err, usuarioExistente) => {
     if (err) {
@@ -52,7 +52,7 @@ export const userPersist = ('/cadastro', (req, res) => {
         return res.status(400).json({ message: "Sinto muito, este nome de usuário ja foi escolhido!" });
       } else {
         // Se o usuário não existe, insira-o no banco de dados
-        const persistirUsuario = `INSERT INTO remi.users (username, senha, titulo, receitas, favoritas, foto) VALUES ('${username}', '${password}', 'Amador', '[]', '[]', '1')`;
+        const persistirUsuario = `INSERT INTO remidb.users (username, senha, titulo, favoritas, foto) VALUES ('${username}', '${password}', 'Amador', '[]', '1')`;
 
         db.query(persistirUsuario, (err, data) => {
           if (err) {
@@ -93,7 +93,7 @@ export const editUser = ('/alterar-dados-de-usuario', (req, res) => {
   const username = req.body.username;
   const titulo = req.body.titulo;
 
-  const q = "UPDATE remi.users SET username = ?, titulo = ? WHERE id = ?";
+  const q = "UPDATE remidb.users SET username = ?, titulo = ? WHERE id = ?";
   const values = [username, titulo, id];
   
 
@@ -115,7 +115,7 @@ export const putProfilePic = ('/selecionar-foto', (req, res) => {
     return res.status(400).json({ message: "ID de usuário inválido" });
   }
 
-  const q = "UPDATE remi.users SET foto = ? WHERE id = ?";
+  const q = "UPDATE remidb.users SET foto = ? WHERE id = ?";
   const values = [foto, id];
 
   db.query(q, values, (err, data) => {
