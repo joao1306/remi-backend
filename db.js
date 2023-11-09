@@ -15,6 +15,5 @@ db.connect((err) => {
       console.error('Erro na conexão com o banco de dados:', err);
     } else {
       console.log('Conexão bem-sucedida');
-      // Faça suas operações no banco de dados aqui
     }
   });
