@@ -1,5 +1,6 @@
 import mysql from 'mysql';
 
+
 export const db = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
     user: 'z0mb64bf7f7m66fns0xb',
