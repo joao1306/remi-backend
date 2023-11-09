@@ -3,11 +3,11 @@ import mysql from 'mysql';
 
 export const db = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
-    user: 'exy4j8xwqydxm5rrerxj',
-    password: 'pscale_pw_RVPT1h6wUB2CK5QHOO5zcwr3oCT6FjEYLSmCEQEofz',
+    user: 'ndq3w5k42t4us3gua8qo',
+    password: 'pscale_pw_zHfAaBlV0QY7ybcIL1MHHYAm1vHtV8ewVEsrO3SZ4Pn',
     database: 'remidb',
     ssl: {
-      rejectUnauthorized: true
+      rejectUnauthorized: false
     }
 });
 
