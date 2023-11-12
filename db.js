@@ -1,15 +1,19 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
+require('dotenv').config()
 
 
-export const db = mysql.createConnection({
-    host: 'aws.connect.psdb.cloud',
-    user: 'ndq3w5k42t4us3gua8qo',
-    password: 'pscale_pw_zHfAaBlV0QY7ybcIL1MHHYAm1vHtV8ewVEsrO3SZ4Pn',
-    database: 'remidb',
-    ssl: {
-      rejectUnauthorized: false
-    }
-});
+//export const db = mysql.createConnection({
+//    host: 'roundhouse.proxy.rlwy.net',
+//    user: 'root',
+//    password: '1Db-fFbhhBdC-3BGH1H36DhDHGab63CD',
+//    database: 'remidb',
+//    port: '13574'
+//});
+
+const mysqlps = require('mysql2')
+const db = mysqlps.createConnection(process.env.DATABASE_URL)
+
+
 
 db.connect((err) => {
     if (err) {
