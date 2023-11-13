@@ -1,24 +1,22 @@
 import mysql from 'mysql2';
-require('dotenv').config()
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 
-//export const db = mysql.createConnection({
-//    host: 'roundhouse.proxy.rlwy.net',
-//    user: 'root',
-//    password: '1Db-fFbhhBdC-3BGH1H36DhDHGab63CD',
-//    database: 'remidb',
-//    port: '13574'
-//});
-
-const mysqlps = require('mysql2')
-const db = mysqlps.createConnection(process.env.DATABASE_URL)
-
+export const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    ssl: {"rejectUnauthorized":true}
+});
 
 
 db.connect((err) => {
-    if (err) {
-      console.error('Erro na conexão com o banco de dados:', err);
-    } else {
-      console.log('Conexão bem-sucedida');
-    }
-  });
+  if (err) {
+    console.error('Erro na conexão com o banco de dados:', err);
+  } else {
+    console.log('Conexão bem-sucedida');
+  }
+});
