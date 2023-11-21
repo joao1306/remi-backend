@@ -10,4 +10,5 @@ router.put('/autor-receita', getAutor);
 router.put('/alterar-dados-de-usuario', editUser);
 router.put('/selecionar-foto', putProfilePic);
 
+
 export default router;
