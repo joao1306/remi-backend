@@ -104,7 +104,6 @@ export const getById = (req, res) => {
             return res.status(200).json(data)
         }
     });
-
 };
 
 export const putNota = (req, res) => {
