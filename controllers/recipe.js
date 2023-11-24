@@ -119,8 +119,7 @@ export const putNota = (req, res) => {
             if (!result || result.length === 0 || !result[0].notas) {
                 return res.status(404).json({ message: "Receita não encontrada" });
             }
-
-            const notasAtuais = JSON.parse(result[0].notas);
+            const notasAtuais = result[0].notas;
             // Adicione a nova nota à array existente
             notasAtuais.push(novaNota);
 
