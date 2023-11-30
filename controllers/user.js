@@ -106,6 +106,25 @@ export const editUser = ('/alterar-dados-de-usuario', (req, res) => {
   });
 });
 
+export const editUserFavorites = ('/alterar-favoritas-de-usuario', (req, res) => {
+  const newFavList = req.body.favoritas;
+  const idUsuario = req.body.id;
+  const newFavListFormatada = JSON.stringify(newFavList);
+  console.log(newFavList);
+
+  const q = "UPDATE remidb.users SET favoritas = ? WHERE id = ?";
+  const values = [newFavListFormatada, idUsuario];
+  
+
+  db.query(q, values, (err, data) => {
+    if (err) {
+      return res.status(500).json({ message: "Erro interno do servidor" });
+    } else {
+      return res.status(200).json({ message: "Usuário editado!" });
+    }
+  });
+});
+
 export const putProfilePic = ('/selecionar-foto', (req, res) => {
   const foto = req.body.foto;
   const id = req.body.idUsuario;
