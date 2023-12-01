@@ -110,7 +110,6 @@ export const editUserFavorites = ('/alterar-favoritas-de-usuario', (req, res) =>
   const newFavList = req.body.favoritas;
   const idUsuario = req.body.id;
   const newFavListFormatada = JSON.stringify(newFavList);
-  console.log(newFavList);
 
   const q = "UPDATE remidb.users SET favoritas = ? WHERE id = ?";
   const values = [newFavListFormatada, idUsuario];

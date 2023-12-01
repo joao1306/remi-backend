@@ -42,6 +42,35 @@ export const getMyRecipes = (req, res) => {
     }
 }
 
+export const getFavorites = (req, res) => {
+    const favList = req.query.userFavorites;
+    const categoria = req.query.categoria;
+
+    if(categoria==='all'){
+        const q = `SELECT * FROM receita WHERE idreceitas IN (${favList})`;
+
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    } else {
+        const q = `SELECT * FROM receita WHERE WHERE idreceitas IN (${favList}) AND categoria = '${categoria}'`;
+
+        db.query(q, (err, data) => {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.status(200).json(data);
+            }
+        })
+    }
+}
+
 export const getBestRecipes = (req, res) => {
     const categoria = req.query.categoria;
 
